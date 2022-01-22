@@ -1,27 +1,34 @@
 import "reflect-metadata";
-import path from "path";
-import { createConnection } from "typeorm";
-import { PayrollReport } from "./entities/payrollReport.entity";
+// import path from "path";
+// import { createConnection } from "typeorm";
+// import { PayrollReport } from "./entities/PayrollReport.entity";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { PayrollResolver } from "./resolvers/payroll";
+import { PayrollReportResolver } from "./resolvers/getEmployeeReports";
 
 const main = async () => {
-  //   const conn = await createConnection({
-  //     type: "postgres",
-  //     database: "payroll",
-  //     logging: true,
-  //     entities: [PayrollReport],
-  //     migrations: [path.join(__dirname, "./migrations/*")],
-  //   });
+  // const conn = await createConnection({
+  //   type: "postgres",
+  //   database: "payroll",
+  //   logging: true,
+  //   entities: [PayrollReport],
+  //   migrations: [path.join(__dirname, "./migrations/*")],
+  // });
+
+  // await conn.runMigrations();
 
   const app = express();
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [PayrollResolver],
+      resolvers: [PayrollResolver, PayrollReportResolver],
       validate: false,
+    }),
+    context: ({ res, req }) => ({
+      res,
+      req,
     }),
   });
 

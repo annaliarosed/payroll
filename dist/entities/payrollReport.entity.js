@@ -10,15 +10,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PayrollReport = void 0;
+const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
+const EmployeeReport_entity_1 = require("./EmployeeReport.entity");
 let PayrollReport = class PayrollReport {
 };
 __decorate([
+    (0, type_graphql_1.Field)(() => type_graphql_1.ID),
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
 ], PayrollReport.prototype, "id", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => [EmployeeReport_entity_1.EmployeeReport]),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Array)
+], PayrollReport.prototype, "employeeReports", void 0);
 PayrollReport = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)(),
+    (0, type_graphql_1.ObjectType)()
 ], PayrollReport);
 exports.PayrollReport = PayrollReport;
-//# sourceMappingURL=payrollReport.entity.js.map
+//# sourceMappingURL=PayrollReport.entity.js.map
