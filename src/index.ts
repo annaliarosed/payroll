@@ -3,7 +3,11 @@ import { createConnection } from "typeorm";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import { PayrollReportResolver } from "./resolvers/employeeReports";
+import { PayrollReportResolver } from "./resolvers/payrollReport";
+
+import { parse } from "csv-parse";
+import fs from "fs";
+import CSVProcessor from "./services/csvProcessor";
 
 const main = async () => {
   const app = express();
@@ -13,11 +17,14 @@ const main = async () => {
     })
     .catch((error) => console.log("Data Access Error : ", error));
 
+  const schema = await CSVProcessor(
+    "/Users/annaliadestefano/Documents/payroll/time-report-42.csv"
+  );
+
+  // app.get("/", () => "hi");
+
   const apolloServer = new ApolloServer({
-    schema: await buildSchema({
-      resolvers: [PayrollReportResolver],
-      validate: false,
-    }),
+    schema: schema,
     context: ({ res, req }) => ({
       res,
       req,

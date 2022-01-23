@@ -1,15 +1,22 @@
 import { Field, ID, ObjectType } from "type-graphql";
-import { Column, Entity, PrimaryGeneratedColumn, BaseEntity } from "typeorm";
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  BaseEntity,
+  EntityRepository,
+} from "typeorm";
 import { EmployeeReport } from "./EmployeeReport.entity";
 
-@ObjectType()
 @Entity()
+@ObjectType()
+@EntityRepository()
 export class PayrollReport extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Field(() => [EmployeeReport])
-  @Column()
-  employeeReports: [EmployeeReport];
+  // @Field(() => [EmployeeReport])
+  // @Column()
+  // employeeReports: [EmployeeReport];
 }
