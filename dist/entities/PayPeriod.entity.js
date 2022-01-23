@@ -9,25 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PayrollReportResolver = void 0;
+exports.PayPeriod = void 0;
 const type_graphql_1 = require("type-graphql");
-const PayrollReport_entity_1 = require("../entities/PayrollReport.entity");
-let PayrollReportResolver = class PayrollReportResolver {
-    async payrollReport() {
-        return {
-            id: 3,
-            employeeReports: [{ employeeId: 9 }],
-        };
-    }
+const typeorm_1 = require("typeorm");
+let PayPeriod = class PayPeriod extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, type_graphql_1.Query)(() => PayrollReport_entity_1.PayrollReport),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], PayrollReportResolver.prototype, "payrollReport", null);
-PayrollReportResolver = __decorate([
-    (0, type_graphql_1.Resolver)()
-], PayrollReportResolver);
-exports.PayrollReportResolver = PayrollReportResolver;
-//# sourceMappingURL=getEmployeeReports.js.map
+    (0, type_graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], PayPeriod.prototype, "startDate", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], PayPeriod.prototype, "endDate", void 0);
+PayPeriod = __decorate([
+    (0, typeorm_1.Entity)(),
+    (0, type_graphql_1.ObjectType)()
+], PayPeriod);
+exports.PayPeriod = PayPeriod;
+//# sourceMappingURL=PayPeriod.entity.js.map

@@ -13,7 +13,7 @@ exports.PayrollReport = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
 const EmployeeReport_entity_1 = require("./EmployeeReport.entity");
-let PayrollReport = class PayrollReport {
+let PayrollReport = class PayrollReport extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, type_graphql_1.Field)(() => type_graphql_1.ID),
@@ -26,8 +26,8 @@ __decorate([
     __metadata("design:type", Array)
 ], PayrollReport.prototype, "employeeReports", void 0);
 PayrollReport = __decorate([
-    (0, typeorm_1.Entity)(),
-    (0, type_graphql_1.ObjectType)()
+    (0, type_graphql_1.ObjectType)(),
+    (0, typeorm_1.Entity)()
 ], PayrollReport);
 exports.PayrollReport = PayrollReport;
 //# sourceMappingURL=PayrollReport.entity.js.map

@@ -12,13 +12,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmployeeReport = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
+const PayPeriod_entity_1 = require("./PayPeriod.entity");
 let EmployeeReport = class EmployeeReport {
 };
 __decorate([
     (0, type_graphql_1.Field)(() => type_graphql_1.ID),
     (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], EmployeeReport.prototype, "employeeId", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => PayPeriod_entity_1.PayPeriod),
+    __metadata("design:type", PayPeriod_entity_1.PayPeriod)
+], EmployeeReport.prototype, "payPeriod", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => type_graphql_1.Int),
+    __metadata("design:type", Number)
+], EmployeeReport.prototype, "amountPaid", void 0);
 EmployeeReport = __decorate([
     (0, typeorm_1.Entity)(),
     (0, type_graphql_1.ObjectType)()

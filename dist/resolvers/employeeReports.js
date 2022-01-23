@@ -9,21 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PayrollResolver = void 0;
+exports.PayrollReportResolver = void 0;
 const type_graphql_1 = require("type-graphql");
-let PayrollResolver = class PayrollResolver {
-    payroll() {
-        return "test";
+const PayrollReport_entity_1 = require("../entities/PayrollReport.entity");
+let PayrollReportResolver = class PayrollReportResolver {
+    async payrollReport() {
+        return PayrollReport_entity_1.PayrollReport.find();
     }
 };
 __decorate([
-    (0, type_graphql_1.Query)(() => String),
+    (0, type_graphql_1.Query)(() => PayrollReport_entity_1.PayrollReport),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], PayrollResolver.prototype, "payroll", null);
-PayrollResolver = __decorate([
+    __metadata("design:returntype", Promise)
+], PayrollReportResolver.prototype, "payrollReport", null);
+PayrollReportResolver = __decorate([
     (0, type_graphql_1.Resolver)()
-], PayrollResolver);
-exports.PayrollResolver = PayrollResolver;
-//# sourceMappingURL=payroll.js.map
+], PayrollReportResolver);
+exports.PayrollReportResolver = PayrollReportResolver;
+//# sourceMappingURL=employeeReports.js.map

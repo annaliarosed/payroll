@@ -1,1 +1,0 @@
-{"version":3,"file":"payroll.js","sourceRoot":"","sources":["../../src/resolvers/payroll.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,+CAA+C;AAG/C,IAAa,eAAe,GAA5B,MAAa,eAAe;IAExB,OAAO;QACH,OAAO,MAAM,CAAA;IACjB,CAAC;CACJ,CAAA;AAHG;IADC,IAAA,oBAAK,EAAC,GAAG,EAAE,CAAC,MAAM,CAAC;;;;8CAGnB;AAJQ,eAAe;IAD3B,IAAA,uBAAQ,GAAE;GACE,eAAe,CAK3B;AALY,0CAAe"}

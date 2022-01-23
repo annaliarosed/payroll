@@ -1,17 +1,17 @@
-import { Field, ID, ObjectType } from "type-graphql";
+import { Field, ID, Int, ObjectType } from "type-graphql";
 import { Entity, PrimaryGeneratedColumn } from "typeorm";
+import { PayPeriod } from "./PayPeriod.entity";
 
 @Entity()
 @ObjectType()
 export class EmployeeReport {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
-  employeeId!: number;
+  employeeId!: string;
 
-  //   @Field(() => String)
-  //   //change to object with more fields
-  //   payPeriod: string;
+  @Field(() => PayPeriod)
+  payPeriod: PayPeriod;
 
-  //   @Field(() => Int)
-  //   amountPaid: number;
+  @Field(() => Int)
+  amountPaid: number;
 }
