@@ -1,6 +1,6 @@
 import "reflect-metadata";
 // import path from "path";
-// import { createConnection } from "typeorm";
+import { createConnection } from "typeorm";
 // import { PayrollReport } from "./entities/PayrollReport.entity";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
@@ -9,17 +9,13 @@ import { PayrollResolver } from "./resolvers/payroll";
 import { PayrollReportResolver } from "./resolvers/getEmployeeReports";
 
 const main = async () => {
-  // const conn = await createConnection({
-  //   type: "postgres",
-  //   database: "payroll",
-  //   logging: true,
-  //   entities: [PayrollReport],
-  //   migrations: [path.join(__dirname, "./migrations/*")],
-  // });
-
-  // await conn.runMigrations();
-
   const app = express();
+  await createConnection()
+    .then(async (_) => {
+      console.log("Connected to DB");
+    })
+    //TODO fix this error
+    .catch((error) => console.log("Data Access Error : ", error));
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
@@ -32,7 +28,7 @@ const main = async () => {
     }),
   });
 
-  apolloServer.applyMiddleware({ app });
+  await apolloServer.applyMiddleware({ app });
 
   app.get("/", (_, res) => {
     res.send("hi");
