@@ -1,6 +1,6 @@
 import csv from "csv-parser";
 import fs from "fs";
-import { snakeCase } from "lodash";
+import { camelCase } from "lodash";
 import { InitialDataImport } from "../types";
 
 const csvProcessor = async (file: string) => {
@@ -11,7 +11,7 @@ const csvProcessor = async (file: string) => {
         fs.createReadStream(file)
           .pipe(
             csv({
-              mapHeaders: ({ header }) => snakeCase(header.trim()),
+              mapHeaders: ({ header }) => camelCase(header.trim()),
               mapValues: ({ value }) => (value ? value.trim() : null),
             })
           )

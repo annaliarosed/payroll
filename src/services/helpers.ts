@@ -35,6 +35,14 @@ export const getPayPeriod = (date: string) => {
   return secondPayPeriod;
 };
 
+export const getAmountPaid = (jobGroup: string, hoursWorked: number) => {
+  if (jobGroup === "A") {
+    return `$${hoursWorked * 20}.00`;
+  }
 
+  if (jobGroup === "B") {
+    return `$${hoursWorked * 30}.00`;
+  }
 
-
+  return null;
+};

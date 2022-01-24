@@ -1,7 +1,7 @@
 import { GraphQLList, GraphQLObjectType, GraphQLSchema } from "graphql";
 import { PayrollReportType, EmployeeReportType } from "../types";
 import csvProcessor from "./csvProcessor";
-import { getPayPeriod } from "./helpers";
+import { getAmountPaid, getPayPeriod } from "./helpers";
 
 const buildSchema = async (file: string) => {
   const rows = await csvProcessor(file);
@@ -28,12 +28,12 @@ const buildSchema = async (file: string) => {
             resolve: (_root) => {
               const objs = rows.map((row) => {
                 return {
-                  employeeId: row["employee_id"],
+                  employeeId: row["employeeId"],
                   payPeriod: getPayPeriod(row["date"]),
-                  amountPaid:
-                    row["job_group"] === "A"
-                      ? `$${row["hours_worked"] * 20}.00`
-                      : `$${row["hours_worked"] * 30}.00`,
+                  amountPaid: getAmountPaid(
+                    row["jobGroup"],
+                    row["hoursWorked"]
+                  ),
                 };
               });
 

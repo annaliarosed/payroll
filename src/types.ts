@@ -22,9 +22,9 @@ export type PayrollReport = {
 
 export type InitialDataImport = {
   date: string;
-  hours_worked: number;
-  employee_id: string;
-  job_group: string;
+  hoursWorked: number;
+  employeeId: string;
+  jobGroup: string;
 };
 
 export const PayPeriodType = new GraphQLObjectType({
