@@ -40,6 +40,7 @@
     "graphql-cli": "^4.1.0",
     "graphql-cli-load": "^0.1.5",
     "lodash": "^4.17.21",
+    "moment": "^2.29.1",
     "node-csv": "^0.1.2",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",

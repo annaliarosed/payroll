@@ -8,6 +8,14 @@ import {
 } from "graphql";
 import { snakeCase } from "lodash";
 import { InitialDataImport } from "src/types";
+import { getPayPeriod } from "./helpers";
+
+const firstPayPeriod = {
+  startDate: "2023-01-01",
+  endDate: "2023-01-15",
+};
+
+const secondPayPeriod = { startDate: "2023-01-16", endDate: "2023-01-31" };
 
 const CSVProcessor = async (file: string) => {
   const parseCSVFile = async (file: string): Promise<InitialDataImport[]> => {
@@ -78,8 +86,8 @@ const CSVProcessor = async (file: string) => {
                 return {
                   employeeId: row["employee_id"],
                   payPeriod: {
-                    startDate: row["date"],
-                    endDate: row["date"],
+                    startDate: getPayPeriod(row["date"]).startDate,
+                    endDate: getPayPeriod(row["date"]).endDate,
                   },
                   amountPaid:
                     row["job_group"] === "A"
