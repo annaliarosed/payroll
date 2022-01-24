@@ -12,15 +12,18 @@ const main = async () => {
   let baseCount = 7;
 
   var storage = multer.diskStorage({
-    destination: (_, x, cb) => {
+    //@ts-expect-error: more than one unused param
+    destination: (_, _, cb) => {
       cb(null, "uploads");
     },
-    filename: (_, file, cb) => {
+
+    //@ts-expect-error: more than one unused param
+    filename: (_, _, cb) => {
       baseCount = baseCount + 1;
       cb(null, `time-report-${baseCount}.csv`);
     },
   });
-  const app = express();
+
   const upload = multer({
     storage,
     fileFilter: (_, file, cb) => {
@@ -33,8 +36,10 @@ const main = async () => {
     },
   });
 
+  const app = express();
+
   createConnection()
-    .then(() => console.log("connected created!"))
+    .then(() => console.log("connection created!"))
     .catch((error) => console.log("error: ", error));
 
   app.get("/", (_, res) => {
@@ -42,8 +47,7 @@ const main = async () => {
   });
 
   await app.post("/", upload.single("csv"), async (req, res) => {
-    console.log(req.file?.filename);
-
+    // handle upload of a csv file
     res.sendFile(
       "/Users/annaliadestefano/Documents/payroll" +
         "/uploads" +
@@ -63,22 +67,25 @@ const main = async () => {
       }
     );
 
+    // create new table in the database
     await db.run(
       `CREATE TABLE ${camelCase(
         req.file?.filename
       )}(date, hoursWorked, employeeId, jobGroup )`
     );
 
+    // add the correct columns
+    const sql = `INSERT INTO ${camelCase(
+      req.file?.filename
+    )} (date, "hoursWorked", "employeeId", "jobGroup")
+      VALUES(?,?,?,?)`;
+
     const rows = await csvProcessor(
       "/Users/annaliadestefano/Documents/payroll/" + req.file?.path
     );
 
-    const sql = `INSERT INTO ${camelCase(
-      req.file?.filename
-    )} (date, "hoursWorked", "employeeId", "jobGroup")
-        VALUES(?,?,?,?)`;
-
-    await rows.forEach((row, index) => {
+    // insert the data from the csv file into corresponding colomns
+    await rows.forEach((row) => {
       db.run(
         sql,
         [
@@ -87,7 +94,7 @@ const main = async () => {
           `${row.employeeId}`,
           `${row.jobGroup}`,
         ],
-        (err) => (err ? console.error(err) : console.log("row worked!", index))
+        (err) => (err ? console.error(err) : console.log("row created"))
       );
     });
 
@@ -95,7 +102,6 @@ const main = async () => {
       err ? console.error(err.message) : console.log("successfuly closed")
     );
 
-    // does not work that well when switching files quickly.
     const apolloServer = new ApolloServer({
       schema: await buildSchema(
         "/Users/annaliadestefano/Documents/payroll/" + req.file?.path
@@ -106,11 +112,9 @@ const main = async () => {
       }),
     });
 
-    // TODO: history.push(/graphql after this)
     apolloServer.applyMiddleware({ app });
   });
 
-  // TODO try to push to data base for sure
   app.listen(4000, () => {
     console.log("server has started on 4000");
   });
