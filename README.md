@@ -173,8 +173,34 @@ yarn dev
 
 Once the server is up there is a an inbox field:
 
-Upload a csv file there
+ - Upload a csv file there
 
 Once uploaded go to: http://localhost:4000/graphql
 
 There you can visualize and interact with the GraphQL api created with the csv file.
+
+
+--------------------------------
+
+## Answers
+
+#### Q: How did you test that your implementation was correct?
+
+ - I only tested this manually because of time restraints. I uploaded a file then went into the GraphQL playground (/graphql) and made sure it was returning the right data in the right shape.
+
+#### Q: If this application was destined for a production environment, what would you add or change?
+
+ - If this was to be deployed at any point I would first of all add automated tests to make sure it was running correctly. I would also implement a nice UI for uploading the file and automatically switching to the GraphQL playground link and handle errors better as well as make them more readable and helpful. 
+ - In terms of the technology I would use a better database, probably Postgres. I would also make the api in typeGraphQL and separate the entities and resolvers into their own folders. I would also want to add some monitoring and error tracking, most likely Sentry.
+
+#### Q: What compromises did you have to make as a result of the time constraints of this challenge?
+
+ - I made a terrible UI to upload your file. I only rendered an input from an html style with no styling at all. I considered the functionality more important than the aesthetics in this case.
+ - I did not write any automated tests at all. I only tested manually.
+ - I went with using sqlite3 for the small size, and ease of using it and getting set up with it.
+ - I did not write the entities and resolvers in TypeGraphQL which I would have preferred to use if I had more time.
+ - The errors are not handled very well in my opinion and I would have spent more time handling them well.
+
+
+
+
