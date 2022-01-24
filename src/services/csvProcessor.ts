@@ -1,6 +1,7 @@
 import csv from "csv-parser";
 import fs from "fs";
 import {
+  GraphQLID,
   GraphQLList,
   GraphQLObjectType,
   GraphQLSchema,
@@ -41,7 +42,7 @@ const CSVProcessor = async (file: string) => {
   const EmployeeReportType = new GraphQLObjectType({
     name: "employeeReport",
     fields: {
-      employeeId: { type: GraphQLString },
+      employeeId: { type: GraphQLID },
       payPeriod: { type: PayPeriodType },
       amountPaid: { type: GraphQLString },
     },
