@@ -2,24 +2,24 @@ import "reflect-metadata";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import buildSchema from "./services/BuildSchema";
-import { createConnection, Db } from "typeorm";
+import { createConnection } from "typeorm";
 import multer from "multer";
 import sqlite3 from "sqlite3";
 import { camelCase } from "lodash";
 import csvProcessor from "./services/csvProcessor";
 
 const main = async () => {
-  let baseCount = 7;
+  let baseCount = 0;
 
   var storage = multer.diskStorage({
-    //@ts-expect-error: more than one unused param
-    destination: (_, _, cb) => {
+    //@ts-expect-error: unused param
+    destination: (_, res, cb) => {
       cb(null, "uploads");
     },
 
-    //@ts-expect-error: more than one unused param
-    filename: (_, _, cb) => {
-      baseCount = baseCount + 1;
+    //@ts-expect-error: unused param
+    filename: (_, res, cb) => {
+      baseCount = baseCount++;
       cb(null, `time-report-${baseCount}.csv`);
     },
   });
