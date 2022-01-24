@@ -203,4 +203,8 @@ There you can visualize and interact with the GraphQL api created with the csv f
 
 
 
+## Video Demonstration
+
+
+https://user-images.githubusercontent.com/56635645/150883646-802f7378-1608-4519-8c3b-1d8c1813c44b.mov
 
