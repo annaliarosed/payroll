@@ -1,0 +1,13 @@
+{
+  "type": "sqlite",
+  "host": "localhost",
+  "port": 4000,
+  "username": "test",
+  "password": "test",
+  "database": "payroll.db",
+  "synchronize": true,
+  "logging": false,
+  "entities": ["src/entity/**/*.ts"],
+  "migrations": ["src/migration/**/*.ts"],
+  "subscribers": ["src/subscriber/**/*.ts"]
+}
