@@ -47,7 +47,6 @@
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.2",
     "ts-node": "^10.4.0",
-    "type-graphql": "^1.1.1",
-    "typeorm": "^0.2.41"
+    "type-graphql": "^1.1.1"
   }
 }

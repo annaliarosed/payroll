@@ -1,9 +1,0 @@
-{
-  "type": "sqlite",
-  "host": "localhost",
-  "port": 4000,
-  "database": "payroll.db",
-  "entities": ["src/entities/**/*.js"],
-  "migrations": ["src/migrations/**/*.js"],
-  "synchronize": true
-}
