@@ -1,9 +1,21 @@
-import { Request, Response } from "express";
-import { Session, SessionData } from "express-session";
+export type PayPeriod = {
+  startDate: string;
+  endDate: string;
+};
 
-export type Context = {
-  req: Request & {
-    session: Session & Partial<SessionData> & { userId: number };
-  };
-  res: Response;
+export type EmployeeReport = {
+  employeeId: string;
+  payPeriod: PayPeriod;
+  amountPaid: string;
+};
+
+export type PayrollReport = {
+  employeeReports: EmployeeReport[];
+};
+
+export type InitialDataImport = {
+  date: string;
+  hours_worked: number;
+  employee_id: string;
+  job_group: string;
 };

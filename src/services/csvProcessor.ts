@@ -7,9 +7,10 @@ import {
   GraphQLString,
 } from "graphql";
 import { snakeCase } from "lodash";
+import { InitialDataImport } from "src/types";
 
 const CSVProcessor = async (file: string) => {
-  const parseCSVFile = async (file: string) => {
+  const parseCSVFile = async (file: string): Promise<InitialDataImport[]> => {
     return new Promise((resolve) => {
       const results: any = [];
       try {
@@ -65,7 +66,7 @@ const CSVProcessor = async (file: string) => {
     };
   };
 
-  const generateSchema = (rows) => {
+  const generateSchema = (rows: InitialDataImport[]) => {
     return new GraphQLSchema({
       query: new GraphQLObjectType({
         name: "Query",
@@ -97,7 +98,7 @@ const CSVProcessor = async (file: string) => {
     });
   };
 
-  const rows = await parseCSVFile(file);
+  const rows: InitialDataImport[] = await parseCSVFile(file);
 
   return generateSchema(rows);
 };
