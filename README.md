@@ -72,47 +72,47 @@ We've agreed to build an API with the following endpoints to serve HTTP requests
 
 As an example, given the upload of a sample file with the following data:
 
-   | date       | hours worked | employee id | job group |
-   | ---------- | ------------ | ----------- | --------- |
-   | 4/1/2023   | 10           | 1           | A         |
-   | 14/1/2023  | 5            | 1           | A         |
-   | 20/1/2023  | 3            | 2           | B         |
-   | 20/1/2023  | 4            | 1           | A         |
+| date      | hours worked | employee id | job group |
+| --------- | ------------ | ----------- | --------- |
+| 4/1/2023  | 10           | 1           | A         |
+| 14/1/2023 | 5            | 1           | A         |
+| 20/1/2023 | 3            | 2           | B         |
+| 20/1/2023 | 4            | 1           | A         |
 
 A request to the report endpoint should return the following JSON response:
 
-   ```json
-   {
-     "payrollReport": {
-       "employeeReports": [
-         {
-           "employeeId": "1",
-           "payPeriod": {
-             "startDate": "2023-01-01",
-             "endDate": "2023-01-15"
-           },
-           "amountPaid": "$300.00"
-         },
-         {
-           "employeeId": "1",
-           "payPeriod": {
-             "startDate": "2023-01-16",
-             "endDate": "2023-01-31"
-           },
-           "amountPaid": "$80.00"
-         },
-         {
-           "employeeId": "2",
-           "payPeriod": {
-             "startDate": "2023-01-16",
-             "endDate": "2023-01-31"
-           },
-           "amountPaid": "$90.00"
-         }
-       ]
-     }
-   }
-   ```
+```json
+{
+  "payrollReport": {
+    "employeeReports": [
+      {
+        "employeeId": "1",
+        "payPeriod": {
+          "startDate": "2023-01-01",
+          "endDate": "2023-01-15"
+        },
+        "amountPaid": "$300.00"
+      },
+      {
+        "employeeId": "1",
+        "payPeriod": {
+          "startDate": "2023-01-16",
+          "endDate": "2023-01-31"
+        },
+        "amountPaid": "$80.00"
+      },
+      {
+        "employeeId": "2",
+        "payPeriod": {
+          "startDate": "2023-01-16",
+          "endDate": "2023-01-31"
+        },
+        "amountPaid": "$90.00"
+      }
+    ]
+  }
+}
+```
 
 We consider ourselves to be language agnostic here at Wave, so feel free to use any combination of technologies you see fit to both meet the requirements and showcase your skills. We only ask that your submission:
 
@@ -150,3 +150,31 @@ Evaluation of your submission will be based on the following criteria.
    they explained?
 1. Did you separate any concerns in your application? Why or why not?
 1. Does your solution use appropriate data types for the problem as described?
+
+## Set up and instructions to run
+
+Clone the repo, cd into the directory and run:
+
+```bash
+yarn install
+```
+
+Then run:
+
+```bash
+yarn watch
+```
+
+and in another terminal run:
+
+```bash
+yarn dev
+```
+
+Once the server is up there is a an inbox field:
+
+Upload a csv file there
+
+Once uploaded go to: http://localhost:4000/graphql
+
+There you can visualize and interact with the GraphQL api created with the csv file.
