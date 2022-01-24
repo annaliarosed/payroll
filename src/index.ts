@@ -8,16 +8,18 @@ import sqlite3 from "sqlite3";
 import { camelCase } from "lodash";
 import csvProcessor from "./services/csvProcessor";
 
-var storage = multer.diskStorage({
-  destination: (_, x, cb) => {
-    cb(null, "uploads");
-  },
-  filename: (_, file, cb) => {
-    cb(null, `time-report-${Math.floor(Math.random() * 20)}.csv`);
-  },
-});
-
 const main = async () => {
+  let baseCount = 7;
+
+  var storage = multer.diskStorage({
+    destination: (_, x, cb) => {
+      cb(null, "uploads");
+    },
+    filename: (_, file, cb) => {
+      baseCount = baseCount + 1;
+      cb(null, `time-report-${baseCount}.csv`);
+    },
+  });
   const app = express();
   const upload = multer({
     storage,
@@ -61,29 +63,30 @@ const main = async () => {
       }
     );
 
-    console.log(req.file);
-
-    db.run(
+    await db.run(
       `CREATE TABLE ${camelCase(
         req.file?.filename
-      )}(date, hours_worked, employee_id, job_group )`
+      )}(date, hoursWorked, employeeId, jobGroup )`
     );
 
     const rows = await csvProcessor(
       "/Users/annaliadestefano/Documents/payroll/" + req.file?.path
     );
 
-    const headers = rows[0];
-
-    const sql = `INSERT INTO ${camelCase(req.file?.filename)} (${
-      headers.date
-    }, ${headers.hoursWorked}, ${headers.employeeId}, ${headers.jobGroup} )
+    const sql = `INSERT INTO ${camelCase(
+      req.file?.filename
+    )} (date, "hoursWorked", "employeeId", "jobGroup")
         VALUES(?,?,?,?)`;
 
-    rows.forEach((row, index) => {
+    await rows.forEach((row, index) => {
       db.run(
         sql,
-        [`${row.date}, ${row.hoursWorked}, ${row.employeeId}, ${row.jobGroup}`],
+        [
+          `${row.date}`,
+          `${row.hoursWorked}`,
+          `${row.employeeId}`,
+          `${row.jobGroup}`,
+        ],
         (err) => (err ? console.error(err) : console.log("row worked!", index))
       );
     });
