@@ -1,8 +1,8 @@
 import "reflect-metadata";
-import { createConnection } from "typeorm";
 import express from "express";
+import { createConnection } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
-import CSVProcessor from "./services/csvProcessor";
+import buildSchema from "./services/BuildSchema";
 
 const main = async () => {
   const app = express();
@@ -12,7 +12,7 @@ const main = async () => {
     })
     .catch((error) => console.log("Data Access Error : ", error));
 
-  const schema = await CSVProcessor(
+  const schema = await buildSchema(
     "/Users/annaliadestefano/Documents/payroll/time-report-42.csv"
   );
 
