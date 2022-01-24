@@ -9,7 +9,7 @@ import { camelCase } from "lodash";
 import csvProcessor from "./services/csvProcessor";
 
 const main = async () => {
-  let baseCount = 20;
+  let baseCount = 22;
 
   var storage = multer.diskStorage({
     //@ts-expect-error: unused param
