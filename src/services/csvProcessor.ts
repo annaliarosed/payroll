@@ -10,13 +10,6 @@ import { snakeCase } from "lodash";
 import { InitialDataImport } from "src/types";
 import { getPayPeriod } from "./helpers";
 
-const firstPayPeriod = {
-  startDate: "2023-01-01",
-  endDate: "2023-01-15",
-};
-
-const secondPayPeriod = { startDate: "2023-01-16", endDate: "2023-01-31" };
-
 const CSVProcessor = async (file: string) => {
   const parseCSVFile = async (file: string): Promise<InitialDataImport[]> => {
     return new Promise((resolve) => {
@@ -85,14 +78,11 @@ const CSVProcessor = async (file: string) => {
               const objs = rows.map((row) => {
                 return {
                   employeeId: row["employee_id"],
-                  payPeriod: {
-                    startDate: getPayPeriod(row["date"]).startDate,
-                    endDate: getPayPeriod(row["date"]).endDate,
-                  },
+                  payPeriod: getPayPeriod(row["date"]),
                   amountPaid:
                     row["job_group"] === "A"
-                      ? row["hours_worked"] * 20
-                      : row["hours_worked"] * 30,
+                      ? `$${row["hours_worked"] * 20}.00`
+                      : `$${row["hours_worked"] * 30}.00`,
                 };
               });
 

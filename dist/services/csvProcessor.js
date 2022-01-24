@@ -8,11 +8,6 @@ const fs_1 = __importDefault(require("fs"));
 const graphql_1 = require("graphql");
 const lodash_1 = require("lodash");
 const helpers_1 = require("./helpers");
-const firstPayPeriod = {
-    startDate: "2023-01-01",
-    endDate: "2023-01-15",
-};
-const secondPayPeriod = { startDate: "2023-01-16", endDate: "2023-01-31" };
 const CSVProcessor = async (file) => {
     const parseCSVFile = async (file) => {
         return new Promise((resolve) => {
@@ -75,13 +70,10 @@ const CSVProcessor = async (file) => {
                             const objs = rows.map((row) => {
                                 return {
                                     employeeId: row["employee_id"],
-                                    payPeriod: {
-                                        startDate: (0, helpers_1.getPayPeriod)(row["date"]).startDate,
-                                        endDate: (0, helpers_1.getPayPeriod)(row["date"]).endDate,
-                                    },
+                                    payPeriod: (0, helpers_1.getPayPeriod)(row["date"]),
                                     amountPaid: row["job_group"] === "A"
-                                        ? row["hours_worked"] * 20
-                                        : row["hours_worked"] * 30,
+                                        ? `$${row["hours_worked"] * 20}.00`
+                                        : `$${row["hours_worked"] * 30}.00`,
                                 };
                             });
                             return {
